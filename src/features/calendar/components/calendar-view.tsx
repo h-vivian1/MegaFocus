@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEvent } from "react";
 import {
     format,
     startOfMonth,
@@ -45,7 +45,7 @@ interface CalendarViewProps {
 
 // -- Componentes Internos de Drag & Drop --
 
-function DraggableTaskItem({ task, onClick }: { task: Task; onClick: () => void }) {
+function DraggableTaskItem({ task, onClick }: { task: Task; onClick: (e: MouseEvent) => void }) {
     const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
         id: task.id,
         data: { task },
