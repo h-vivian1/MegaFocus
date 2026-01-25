@@ -1,113 +1,133 @@
-# Documentação do Projeto MegaFocus
+# 🎯 MegaFocus
+
+> O seu leque de produtividade definitivo. Gerencie tarefas, controle seu tempo e organize sua vida em um único lugar.
+
+![Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow)
+![Release](https://img.shields.io/github/v/release/[SEU-USUARIO]/[NOME-DO-REPO])
+![Repo Size](https://img.shields.io/github/repo-size/[SEU-USUARIO]/[NOME-DO-REPO])
+![License](https://img.shields.io/badge/License-MIT-purple)
+
+<div style="display: flex; gap: 10px; margin-bottom: 20px;">
+  <img src="https://img.shields.io/badge/Next.js-15-black?logo=next.js" alt="Next.js 15" />
+  <img src="https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Supabase-Auth%20%26%20DB-green?logo=supabase" alt="Supabase" />
+  <img src="https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwind-css" alt="Tailwind" />
+</div>
 
 ## 🚀 Visão Geral
-MegaFocus é uma aplicação de produtividade "Tudo-em-Um" que combina um quadro Kanban robusto com um Timer Pomodoro integrado. O objetivo é permitir que o usuário gerencie tarefas e foco em um único "Cockpit" de produtividade.
+
+O **MegaFocus** resolve o problema da fragmentação de ferramentas. Ao invés de usar um app para listas (ToDo) e outro para timer (Pomodoro), ele integra ambos em uma interface fluida e moderna.
+
+A aplicação utiliza **Next.js 15 (App Router)** para performance máxima e **Supabase** para garantir que seus dados estejam seguros e sincronizados em tempo real.
+
+## ✨ Funcionalidades Principais
+
+### 🧠 Foco & Produtividade (Pomodoro)
+* **Timer Global (Zustand):** O cronômetro continua rodando na barra lateral enquanto você navega ou organiza tarefas.
+* **Modos Inteligentes:** Ciclos pré-configurados de Foco (25m), Pausa Curta (5m) e Pausa Longa (15m).
+* **Feedback Sensorial:** Sons de notificação e barra de progresso visual.
+
+### 📋 Kanban Board (Drag & Drop)
+* **Organização Visual:** Arraste tarefas entre colunas (A Fazer, Em Progresso, Concluído) usando `@dnd-kit`.
+* **Cards Ricos:** Defina prioridades, cores personalizadas (Pastel Colors) e checklist de subtarefas direto no card.
+* **Gamificação:** Efeitos de confete 🎉 ao concluir tarefas para manter a motivação.
+
+### 🔐 Segurança & Nuvem
+* **Autenticação Completa:** Login seguro via Email/Senha com confirmação (Magic Link ou Código).
+* **Dados Protegidos:** Uso de RLS (Row Level Security) no Supabase — cada usuário acessa apenas o que é seu.
+
+---
 
 ## 🛠️ Stack Tecnológica
-- **Framework**: Next.js 15 (App Router)
-- **Linguagem**: TypeScript
-- **Estilização**: Tailwind CSS + Shadcn/ui
-- **Banco de Dados/Auth**: Supabase
-- **Gerenciamento de Estado**: 
-  - `zustand` (Pomodoro Global)
-  - `react-hook-form` + `zod` (Formulários e Validação)
-- **Drag & Drop**: `@dnd-kit/core`
+
+| Categoria | Tecnologia |
+| :--- | :--- |
+| **Framework** | Next.js 15 (App Router) |
+| **Linguagem** | TypeScript |
+| **Estilização** | Tailwind CSS + Shadcn/ui |
+| **Backend / DB** | Supabase (PostgreSQL) |
+| **Gerência de Estado** | Zustand (Global) + React Query |
+| **Validação** | Zod + React Hook Form |
+| **Deploy** | Vercel |
 
 ---
 
-## 🌟 Funcionalidades Implementadas
+## 💻 Como Rodar o Projeto (Localmente)
 
-### 1. Autenticação e Segurança
-- Login integrado com Supabase.
-- Rotas protegidas (redirecionamento automático se não autenticado).
-- Row Level Security (RLS) garantindo que usuários só vejam seus próprios dados.
+Se você é desenvolvedor e quer contribuir ou testar na sua máquina:
 
-### 2. Quadro Kanban (Core)
-- **Drag and Drop**: Movimentação suave de tarefas entre colunas (A Fazer, Em Progresso, Concluído).
-- **Persistência**: As mudanças de status são salvas automaticamente no servidor.
-- **Task Card Otimizado**:
-  - Exibe Título, Prioridade, Badge de Categoria.
-  - **Fundo Colorido**: Personalizável por tarefa.
-  - **Checklist Visível**: Subtarefas aparecem diretamente no card e podem ser marcadas como concluídas sem abrir o modal.
-  - **Descrição**: Preview de até 2 linhas.
+### 1. Clone o repositório
+```bash
+git clone [https://github.com/](https://github.com/)[SEU-USUARIO]/[NOME-DO-REPO].git
+cd [NOME-DO-REPO]
 
-### 3. Gerenciamento de Tarefas (CRUD Avançado)
-- **Criação**: Modal rápido para novas tarefas.
-- **Edição (Sheet Lateral)**:
-  - Layout compacto e profissional.
-  - **Seletor de Cores**: "Pastel Moderno" para diferenciar contextos.
-  - **Categorias**: Input com autocomplete (datalist).
-  - **Subtarefas**: Adicionar/Remover itens de checklist.
-  - **Fallback de Erro**: Sistema inteligente que prevenine inatividade se o banco de dados estiver desatualizado (salva dados parciais e avisa o usuário).
-- **Exclusão**: Botão de deletar com confirmação de segurança (Alert Dialog).
-
-### 4. Pomodoro Timer (Cockpit)
-- **Barra Lateral Fixa**: Ocupe o lado direito da tela, sempre visível mas não intrusivo.
-- **Estado Global (Zustand)**: O timer continua rodando mesmo se você navegar entre rotas ou interagir com o Kanban.
-- **Modos de Foco**:
-  - 🧠 Foco (25 min)
-  - ☕ Pausa Curta (5 min)
-  - 🛋️ Pausa Longa (15 min)
-- **Feedback Visual/Sonoro**: Barra de progresso, timer gigante e som ao finalizar.
-
-### 5. Celebração 🎉
-- **Confete & Som**: Efeitos visuais e sonoros gratificantes ao mover uma tarefa para "Concluído".
-- **Visual Dimming**: Tarefas concluídas ficam levemente transparentes e em tons de cinza para foco nas pendências.
-
----
-
-## 🗄️ Estrutura de Banco de Dados (Schema)
-
-A tabela `tasks` foi extendida para suportar funcionalidades ricas:
-
-```sql
-TABLE public.tasks (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid REFERENCES auth.users NOT NULL,
-  title text NOT NULL,
-  description text,
-  status text DEFAULT 'todo', -- 'todo', 'doing', 'done'
-  priority text DEFAULT 'medium', -- 'low', 'medium', 'high'
-  due_date timestamp with time zone,
-  created_at timestamp with time zone DEFAULT now(),
-  updated_at timestamp with time zone DEFAULT now(),
-  
-  -- Colunas Novas (V2)
-  color text DEFAULT 'bg-white dark:bg-slate-950', -- Classes Tailwind
-  category text, -- Ex: "Trabalho", "Estudos"
-  subtasks jsonb DEFAULT '[]' -- Array de objetos: { id, title, completed }
-);
-
--- Índices
-CREATE INDEX idx_tasks_user_id ON public.tasks(user_id);
-CREATE INDEX idx_tasks_category ON public.tasks(category);
 ```
 
+### 2. Instale as dependências
+
+```bash
+npm install
+# ou
+yarn install
+
+```
+
+### 3. Configure as Variáveis de Ambiente
+
+Crie um arquivo `.env.local` na raiz do projeto com suas credenciais do Supabase:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=SUA_URL_DO_SUPABASE
+NEXT_PUBLIC_SUPABASE_ANON_KEY=SUA_CHAVE_ANONIMA
+
+```
+
+### 4. Rode o servidor de desenvolvimento
+
+```bash
+npm run dev
+
+```
+
+Acesse [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) no seu navegador.
+
 ---
 
-## 🎨 Design System
-- **Fonte**: Plus Jakarta Sans (Moderna e Geométrica).
-- **Cores**: Paleta Slate (Cinza azulado) para interface e cores Pastel para cards.
-- **Componentes**: Baseados em Shadcn/ui (Radix Primitives) para acessibilidade total.
+## 🗄️ Estrutura do Banco de Dados
 
-## 🚀 Como Rodar o Projeto
+<details>
+<summary><strong>Ver Schema SQL (Tabela Tasks)</strong></summary>
 
-### Opção 1: Script Automático (Recomendado)
-Na pasta raiz `organiza_rotina`, basta dar dois cliques no arquivo:
-**`iniciar_megafocus.bat`**
-Isso abrirá o navegador e iniciará o servidor automaticamente.
+```sql
+create table public.tasks (
+  id uuid not null default gen_random_uuid (),
+  user_id uuid not null references auth.users (id),
+  title text not null,
+  description text null,
+  status text null default 'todo'::text,
+  priority text null default 'medium'::text,
+  color text null default 'bg-white'::text,
+  subtasks jsonb null default '[]'::jsonb,
+  created_at timestamp with time zone null default now(),
+  constraint tasks_pkey primary key (id)
+);
 
-### Opção 2: Manualmente
-1. Instale as dependências:
-   ```bash
-   npm install
-   ```
+```
 
-2. Configure o arquivo `.env.local` com suas chaves do Supabase.
+</details>
 
-3. Rode o servidor de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
+---
 
-4. Acesse [http://localhost:3000](http://localhost:3000).
+## 🤝 Contribuição
+
+Contribuições são bem-vindas! Se você tiver uma ideia para melhorar o MegaFocus:
+
+1. Faça um Fork do projeto
+2. Crie uma Branch para sua Feature (`git checkout -b feature/IncrivelFeature`)
+3. Faça o Commit (`git commit -m 'Add some IncrivelFeature'`)
+4. Faça o Push (`git push origin feature/IncrivelFeature`)
+5. Abra um Pull Request
+
+---
+
+Made with 💜 h-vivian1
