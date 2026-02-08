@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { z } from "zod";
+import { headers } from "next/headers";
 
 // Schema simples para validação
 const authSchema = z.object({
@@ -47,6 +48,7 @@ export async function login(formData: FormData) {
 
 export async function signup(formData: FormData) {
     const supabase = await createClient();
+    const origin = (await headers()).get("origin");
 
     const data = Object.fromEntries(formData);
     const parsed = authSchema.safeParse(data);
@@ -55,8 +57,13 @@ export async function signup(formData: FormData) {
         return { error: "Senha muito curta ou email inválido." };
     }
 
-    // Envia email de confirmação por padrão
-    const { error } = await supabase.auth.signUp(parsed.data);
+    // Envia email de confirmação com redirecionamento para rota de callback
+    const { error } = await supabase.auth.signUp({
+        ...parsed.data,
+        options: {
+            emailRedirectTo: `${origin}/auth/callback?next=/email-confirmed`,
+        },
+    });
 
     if (error) {
         return { error: error.message };

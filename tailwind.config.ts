@@ -1,4 +1,6 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
+import tailwindAnimate from "tailwindcss-animate";
 
 const config = {
 	darkMode: ["class"],
@@ -21,7 +23,7 @@ const config = {
 			fontFamily: {
 				sans: [
 					'var(--font-sans)',
-					...require("tailwindcss/defaultTheme").fontFamily.sans
+					...defaultTheme.fontFamily.sans
 				],
 				signature: [
 					'var(--font-cursive)',
@@ -92,7 +94,7 @@ const config = {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindAnimate],
 } satisfies Config
 
 export default config
